@@ -1,0 +1,1535 @@
+<!DOCTYPE html>
+<html lang="en">
+  <!-- 
+WELCOME USER! You've reached the source code for a manual created by STS. If you plan on updating or editing this manual, then you're in the right place!
+
+Before editing this manual, please read through the manual editing guide at https://sts.doit.wisc.edu/manuals/manual-editing-guide/ and follow its recommendations. It is important that we adhere to the conventions laid out in the guide in order to maintain quality and consistency across all STS materials.
+
+Good luck, and have fun!
+-->
+  <head>
+    <!-- Manual title -->
+    <title>CSS 2</title>
+    <meta charset="utf-8" />
+    <meta
+      name="description"
+      content="Software manual provided by Software Training for Students at the University of Wisconsin."
+    />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="stylesheet"
+      id="uwmadison-fonts-css"
+      href="https://brand.wisc.edu/content/themes/uw-theme/dist/fonts/uw160/fonts.css?ver=1.1.1"
+      type="text/css"
+      media="all"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="../master-files/css/stylesheet.css"
+    />
+    <script src="../master-files/highlight.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script src="../master-files/smooth-scroll.js"></script>
+    <script src="../master-files/primary-functions.js"></script>
+    <script src="../master-files/ga.js"></script>
+  </head>
+  <body>
+    <!-- begin front page -->
+
+    <div class="manual-front-page">
+      <div id="coverpage-title">
+        <h1>CSS 2</h1>
+        <h2>Layout and Responsive Design</h2>
+      </div>
+      <div id="about-page"></div>
+      <div id="outline"></div>
+    </div>
+
+    <!-- MAIN CONTENT -->
+
+    <section class="topic">
+      <h1>Introduction</h1>
+      <h2>Importance of layouts and responsive design</h2>
+      <p>
+        In the previous CSS guide, when working with elements such as images, we
+        were able to apply properties that were very effective individually. But
+        what about when we want to create a website using many images? This is
+        where layouts and responsive design is important. To put it simply,
+        layouts allow us to contain a bunch of elements, and format them so they
+        all behave simarly. Combine this with responsive design (a design where
+        the properties change based on the size of the browser window, eg. a
+        website for mobile browsers), and it allows for a very versitile
+        website.
+      </p>
+      <h2>Prerequisites</h2>
+      <ul>
+        <li>General knowledge of HTML</li>
+        <li>Basic knowledge of CSS</li>
+        <ul>
+          <li>Syntax, selectors, and rules</li>
+          <li>Box model</li>
+          <li>Margin</li>
+          <li>Padding</li>
+          <li>Color and background color</li>
+          <li>Floats</li>
+        </ul>
+      </ul>
+      <p>
+        This course builds off the content from our HTML and CSS 1 course, so if
+        any of the preceding information is unfamiliar, we recommend reading
+        those manuals before proceeding.
+      </p>
+    </section>
+    <section class="topic">
+      <h1>Basic Layout</h1>
+      <h2>Position</h2>
+      <p>
+        When looking at a website, it is pretty obvious that every element has
+        its own position on the screen. But what isn’t as clear is that every
+        element can have one of many different “types” of positions.
+      </p>
+      <p>
+        Before delving into the different types of positions, it should be noted
+        what <span class="type">top</span>, <span class="type">bottom</span>,
+        <span class="type">left</span>, and <span class="type">right</span> do.
+        Each property affects the position given their direction, by the
+        specified amount. Something like
+        <span class="type">top: 50px</span> would set the top edge of the
+        element 50px <em>down</em> from its nearest positioned ancestor.
+      </p>
+      <div class="reference full-width">
+        <pre><code>position: static</code></pre>
+        <p>
+          Without knowing that there are different types of positions, most
+          would assume that every position is of
+          <span class="type">static</span> type. And that is for good reason. It
+          is by far the most common position value seen on a website, and it is
+          also the default for every HTML element. A static position is when an
+          element is positioned according to the normal flow of the document.
+          The text you are reading right now is of type
+          <span class="type">static</span>. It also should be noted that
+          <span class="type">top</span>, <span class="type">bottom</span>,
+          <span class="type">left</span>, and <span class="type">right</span> do
+          not affect static elements, but do work on all other position types.
+        </p>
+      </div>
+      <div class="reference full-width">
+        <pre><code>position: relative</code></pre>
+        <p>
+          The next type of position is <span class="type">relative</span>.
+          Relative elements are offset a given amount from their normal
+          position, but the offset does not affect other elements. For example,
+          applying <span class="type">top: 50px</span>, will position the
+          element 50px from the top edge (aka 50px down) of its nearest
+          positioned ancestor. But, it will not offset its surrounding elements.
+          The element of focus is offset relative to itself.
+        </p>
+      </div>
+      <div class="reference full-width">
+        <pre><code>position: absolute</code></pre>
+        <p>
+          Both <span class="type">relative</span> and
+          <span class="type">static</span> elements remain in the normal flow of
+          the document, because the surrounding elements are aware of the
+          elements position. On the other hand, items of type
+          <span class="type">absolute</span> are taken out of the flow. The
+          surrounding elements of an absolutely positioned element act as if it
+          does not exist. Applying top and left to an absolutely positioned
+          element will be positioned down and right relative to its nearest
+          non-static ancestor.
+        </p>
+      </div>
+      <div class="reference full-width">
+        <pre><code>position: fixed</code></pre>
+        <p>
+          Like <span class="type">absolute</span> positioning,
+          <span class="type">fixed</span> elements are also removed from the
+          normal flow of the document. The difference is, that instead of being
+          positioned by its ancestor, it is positioned relative to the initial
+          containing block established by the viewport. So the dimensions will
+          change based on the browser size. Applying top and left would position
+          the element down and right
+        </p>
+      </div>
+      <div class="reference full-width">
+        <pre><code>position: sticky</code></pre>
+        <p>
+          The <span class="type">sticky</span> value for positioning can be
+          thought of as a hybrid of <span class="type">relative</span> and
+          <span class="type">fixed</span> positioning. This kind of element will
+          be treated as a relative element while it remains in the viewport
+          (browser screen), but once it reaches a certain threshold when
+          scrolling away, it will become a fixed element. For example, applying
+          <span class="type">top: 50px</span>
+          will make the element 50px from the top edge, but once the user
+          scrolls enough where the sticky element would be less than 50px from
+          the top of the screen, it becomes fixed and sticks to the top.
+        </p>
+      </div>
+      <h2>Display</h2>
+      <p>
+        In addition to different types of positions, each element also has
+        different ways they can be displayed. And to do this, we can use the
+        display property in order to specify the display behavior.
+      </p>
+      <div class="reference full-width">
+        <pre><code>display: block</code></pre>
+        <p>
+          A <span class="type">block</span> level element will always start on a
+          new line and it will take up the full available width (stretches
+          horizontally as much as it can). For an example, if you have a
+          bordered text box that is a block-level element, it will of course be
+          on a new line, and even if the text inside does not take up the whole
+          width, the textbox will stretch horizontally as much as it can.
+          Visually, the border will surround the text and whitespace after the
+          text. Here are some block-level elements that should be familiar:
+          <span class="type">&ltdiv&gt</span>,
+          <span class="type">&lth1&gt</span>, <span class="type">&ltp&gt</span>,
+          <span class="type">&ltform&gt</span>,
+          <span class="type">&ltheader&gt</span>,
+          <span class="type">&ltfooter&gt</span>, and
+          <span class="type">&ltsection&gt</span>.
+        </p>
+      </div>
+      <div class="reference full-width">
+        <pre><code>display: inline</code></pre>
+        <p>
+          An <span class="type">inline</span> element is the opposite of a block
+          element. It does not start on a new line, and it only takes as much
+          width as necessary. Using the bordered text box example, the text
+          inside an inline element will only take as much width as it needs, and
+          the border will not contain any unnecessary white space. Here are some
+          inline elements that should be familiar:
+          <span class="type">&ltspan&gt</span>,
+          <span class="type">&lta&gt</span>, and
+          <span class="type">&ltimg&gt</span>.
+        </p>
+      </div>
+      <div class="reference full-width">
+        <pre><code>display: inline-block</code></pre>
+        <p>
+          As one may expect, <span class="type">inline-block</span> is a
+          combination of both <span class="type">inline</span> and
+          <span class="type">block</span>. The difference between inline-block
+          and inline is that you are able to set the top and bottom
+          margins/paddings, width, and height to an element with inline-block.
+          With inline, all of these properties are ignored, because recall that
+          it only uses as much as space needed. The difference from block is
+          that inline-block elements do not cause line breaks, so you can have
+          multiple elements next to each other on the same line.
+        </p>
+      </div>
+      <p>
+        That was a brief overview of the basic layout properties in CSS. When
+        making a website, these properties can be very useful when you want to
+        position a few elements a certain way, but when working with a lot of
+        elements, it is more efficient to use the advanced layouts which we will
+        go over next.
+      </p>
+    </section>
+    <section class="topic">
+      <h1>Flexbox</h1>
+      <p>
+        The first advanced layout model we will go over is flexbox. Flexbox is a
+        powerful one-dimensional layout model that allows for space distribution
+        between items in an interface and powerful alignment capabilities.
+      </p>
+      <p>
+        Before getting into the flexbox properties, it is important to know that
+        some properties are for flex containers and some are for flex items. As
+        a refresher, a container is something like the
+        <span class="type">&ltdiv&gt</span> tag where it doesn’t have any
+        immediate effect visually, but it allows you to put other items inside
+        of it. So, the idea of flexbox is to have a flex container consisting of
+        many flex items. Properties on the container will have an effect on all
+        of the items as a whole, while properties on an item will change the
+        specified item individually.
+      </p>
+      <h2>Container</h2>
+      <p>
+        The following properties will be pertaining to the flex container rather
+        than flex items.
+      </p>
+      <div class="reference full-width">
+        <pre><code>display: flex</code></pre>
+        <p>
+          The <span class="type">flex</span> property simply enables flex
+          content for the container, and all of its direct children. Without
+          doing this first, using the flex properties we will learn later will
+          have no effect on the layout.
+        </p>
+      </div>
+      <div class="reference full-width">
+        <pre><code>flex-direction: &ltvalue&gt</code></pre>
+        <p>
+          The <span class="type">flex-direction</span> property is the most
+          fundamental part of flexbox, and it is really important to understand
+          how it works. And luckily, it is very easy! Flex-direction establishes
+          the main axis, or in other words, the direction that flex items are
+          placed in the container. Flexbox, again, is a one-dimensional layout
+          model, so there has to be a primary direction that the items will
+          have.
+        </p>
+        <p>It can take the following values:</p>
+        <table>
+          <tr>
+            <td><span class="highlight">row</span></td>
+            <td>Items are placed from left to right</td>
+          </tr>
+          <tr>
+            <td>row-reverse</td>
+            <td>Items are placed from right to left</td>
+          </tr>
+          <tr>
+            <td>column</td>
+            <td>Items are placed from top to bottom</td>
+          </tr>
+          <tr>
+            <td>column-reverse</td>
+            <td>Items are placed from bottom to top</td>
+          </tr>
+        </table>
+        <p class="center-text">
+          <span class="highlight">Highlight</span> denotes default value
+        </p>
+        <img
+          src="images/flex-direction.png"
+          alt="Visual example of flex-direction"
+        />
+      </div>
+      <div class="reference full-width">
+        <pre><code>flex-wrap: &ltvalue&gt</code></pre>
+        <p>
+          If you know how text-wrapping works,
+          <span class="type">flex-wrap</span> is the same idea. But for those
+          who don’t, <span class="type">flex-wrap</span> defines how the flex
+          items behave when there are too many items on one line.
+        </p>
+        <table>
+          <tr>
+            <td><span class="highlight">nowrap</span></td>
+            <td>
+              All of the flex items will try to fit on one line, even if it has
+              to squish them
+            </td>
+          </tr>
+          <tr>
+            <td>wrap</td>
+            <td>
+              When there is not enough room for the next flex item, it will
+              start a new line and continue placing the flex items as so
+            </td>
+          </tr>
+          <tr>
+            <td>wrap-reverse</td>
+            <td>
+              Same idea as wrap, but it will create a new line on top of the
+              current one, so that the items will wrap in the reverse order
+            </td>
+          </tr>
+        </table>
+        <p class="center-text">
+          <span class="highlight">Highlight</span> denotes default value
+        </p>
+        <img src="images/flex-wrap.png" alt="Visual example of flex-wrap" />
+      </div>
+      <div class="reference full-width">
+        <pre><code>flex-flow: [direction] [wrap]</code></pre>
+        <p>
+          The <span class="type">flex-flow</span> property is simply a shorthand
+          for flex-direction and flex-wrap. So for an example, instead of doing
+          flex-direction: column and flex-wrap: wrap, it can be reduced to
+          flex-flow: column wrap. The default value for flex-flow is
+          <span class="type">row nowrap</span>.
+        </p>
+      </div>
+      <ol class="instruction-list">
+        <li>
+          We will first work with <span class="type">index.html</span>, so open
+          it in any browser
+        </li>
+        <li>
+          Open <span class="type">masonry.css</span> in a text editor of your
+          choice, and we will be adding to the
+          <span class="type">.image-grid</span> class
+          <pre><code>.image-grid {
+  max-height: 800px;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+}</code></pre>
+          Remember that <span class="type">flex-flow</span> is a shorthand for
+          <span class="type">flex-direction</span> and
+          <span class="type">flex-wrap</span>, so try condensing the code!
+        </li>
+        <li>
+          Your pictures should now be formatted similarly to this:
+          <img
+            src="images/masonry-example-1.png"
+            alt="Picture of website after adding flexbox properties stated above"
+          />
+          Note that the space between images will vary per person (for now).
+        </li>
+      </ol>
+      <div class="reference full-width">
+        <pre><code>justify-content: &ltvalue&gt</code></pre>
+        <p>
+          We stated before that flex-direction is very important in
+          understanding flexbox, and properties like
+          <span class="type">justify-content</span> is the reason why.
+          Justify-content defines the alignment along the main axis (defined by
+          flex-direction) and determines the behavior when there is leftover
+          space. There are many values for this property, but we will only be
+          going over the most common ones. We do encourage you to check out the
+          flexbox documentation to see all of the properties.
+        </p>
+        <table>
+          <tr>
+            <td><span class="highlight">flex-start</span></td>
+            <td>
+              All of the items are packed towards the start of the
+              flex-direction
+            </td>
+          </tr>
+          <tr>
+            <td>flex-end</td>
+            <td>
+              All of the items are toward the end of the flex-direction center
+              is where all of the items are centered along the axis
+            </td>
+          </tr>
+          <tr>
+            <td>space-between</td>
+            <td>
+              First and last item are touching the edges, and the rest of the
+              items are evenly distributed
+            </td>
+          </tr>
+          <tr>
+            <td>space-around</td>
+            <td>
+              Each item has equal space around itself; the first and last item
+              will have only have one unit of space against the edge, while the
+              space between two items have two units of space
+            </td>
+          </tr>
+          <tr>
+            <td>space-evenly</td>
+            <td>
+              Same as space-around, except the first and last item also have two
+              units of space against the edge
+            </td>
+          </tr>
+        </table>
+        <p class="center-text">
+          <span class="highlight">Highlight</span> denotes default value
+        </p>
+        <img
+          src="images/flex-justify-content.png"
+          alt="Visual example of justify-content"
+        />
+      </div>
+      <div class="reference full-width">
+        <pre><code>align-items: &ltvalue&gt</code></pre>
+        <p>
+          The <span class="type">justify-content</span> property defines how
+          items are laid out along the main axis defined by flex-direction. So
+          we can think of align-items as justify-content, but perpendicular to
+          the main-axis (known as the cross-axis). Again, we are only going over
+          the most common values, but if you are interested in knowing all of
+          them, strongly encourage reading the documents (which can be found
+          from a quick google search).
+        </p>
+        <table>
+          <tr>
+            <td><span class="highlight">stretch</span></td>
+            <td>
+              Stretch to fill the container (while respecting
+              min-width/max-width values)
+            </td>
+          </tr>
+          <tr>
+            <td>flex-start</td>
+            <td>Place items at the start of the cross-axis</td>
+          </tr>
+          <tr>
+            <td>flex-end</td>
+            <td>Place items at the end of the cross-axis</td>
+          </tr>
+          <tr>
+            <td>center</td>
+            <td>Center the items along the cross-axis</td>
+          </tr>
+          <tr>
+            <td>baseline</td>
+            <td>
+              Align the items so that the content inside each flex item is
+              centered along the cross-axis
+            </td>
+          </tr>
+        </table>
+        <p class="center-text">
+          <span class="highlight">Highlight</span> denotes default value
+        </p>
+        <img
+          src="images/flex-align-items.png"
+          alt="Visual example of align items"
+        />
+      </div>
+      <div class="reference full-width">
+        <pre><code>align-content: &ltvlaue&gt</code></pre>
+        <p>
+          Justify-content can align the flex items along the main-axis when
+          there is extra space, and similarly,
+          <span class="type">align-content</span> aligns the flex containers
+          lines when there is extra space in the cross-axis. It should be noted
+          that this property has no effect if there is only one line of flex
+          items.
+        </p>
+        <table>
+          <tr>
+            <td><span class="highlight">stretch</span></td>
+            <td>Lines stretch to fill the remaining space</td>
+          </tr>
+          <tr>
+            <td>flex-start</td>
+            <td>
+              Packs all of the items to the start of the container along the
+              cross-axis
+            </td>
+          </tr>
+          <tr>
+            <td>flex-end</td>
+            <td>
+              Packs all of the items to the end of the container along the
+              cross-axis
+            </td>
+          </tr>
+          <tr>
+            <td>center</td>
+            <td>All of the items centered along the cross-axis</td>
+          </tr>
+          <tr>
+            <td>space-between</td>
+            <td>
+              Evenly distributes the space between each line where the first and
+              last line are touching the container edge
+            </td>
+          </tr>
+          <tr>
+            <td>space-around</td>
+            <td>
+              Evenly distributes the the space between each line; the first and
+              last line have one unit of space against the edge, while each line
+              has two units of space between
+            </td>
+          </tr>
+          <tr>
+            <td>space-evenly</td>
+            <td>
+              Same as space-around, except the first and last line also have two
+              units of space against the edge
+            </td>
+          </tr>
+        </table>
+        <p class="center-text">
+          <span class="highlight">Highlight</span> denotes default value
+        </p>
+        <img
+          src="images/flex-align-content.png"
+          alt="Visual example of align-content"
+        />
+      </div>
+      <ol class="instruction-list">
+        <li>
+          We will be adding onto the class <span class="type">.image-grid</span>
+          <pre><code>.image-grid {
+  max-height: 800px;
+  display: flex;
+  flex-flow: column wrap;
+  align-content: center;
+  align-items: center;
+}</code></pre>
+        </li>
+        <li>
+          The website should now look something like this:
+          <img
+            src="images/masonry-example-2.png"
+            alt="Picture of webiste after adding code stated above"
+          />
+          The big thing to note is that there are no longer gaps between the
+          pictures.
+        </li>
+        <li>
+          Now lets change how the social media bar appears by adding to
+          <span class="type">.icon-bar</span>
+          <pre><code>.image-grid {
+  max-height: 800px;
+  display: flex;
+  flex-flow: column wrap;
+  align-content: center;
+  align-items: center;
+}</code></pre>
+        </li>
+        <li>
+          The icon bar should now be centered above the copyright footer.
+          <img
+            src="images/masonry-example-3.png"
+            alt="Picture of website after adding code stated above"
+          />
+        </li>
+      </ol>
+
+      <h2>Item</h2>
+      <p>
+        The following properties are now pertaining to flex items rather than
+        the container.
+      </p>
+      <div class="reference full-width">
+        <pre><code>order: [num]</code></pre>
+        <p>
+          Flex items are laid out in the source order by default, but using the
+          <span class="type">order</span> property, you can manually change the
+          order in how they appear. It is important to note that the default
+          order is 0, so setting one flex item to order: 1 will make it the last
+          item because the rest of the orders are of value 0. To make it the
+          first item, you can either do something like order: -1, or by manually
+          putting in the order for the rest of the items.
+        </p>
+        <img src="images/flex-order.png" alt="Visual example of flex-order" />
+      </div>
+      <div class="reference full-width">
+        <pre><code>flex-grow: [num]</code></pre>
+        <p>
+          The property <span class="type">flex-grow</span> defines the ability
+          for a flex item to grow if needed. It takes a non-negative number that
+          serves as a proportion, which dictates how much of the available space
+          inside the flex container the item should take up. The default value
+          is 0, so if you only define flex-grow for one item, since the other
+          items have a value of 0, that item will take as much space as it can.
+          Another example is that if all flex items have a value of 1 result in
+          the remaining space being distributed evenly. But if one is changed to
+          2, then that item will try to take twice as much space compared to the
+          others.
+        </p>
+        <img src="images/flex-grow.png" alt="Visual example of flex-grow" />
+      </div>
+      <div class="reference full-width">
+        <pre><code>flex-shrink: [num]</code></pre>
+        <p>
+          The <span class="type">flex-shrink</span> is identical to flex-grow,
+          but instead affects how the item shrinks if needed.
+        </p>
+      </div>
+      <div class="reference full-width">
+        <pre><code>flex-basis: auto | [length]</code></pre>
+        <p>
+          The <span class="type">flex-basis</span> property sets the default
+          size of an element before the remaining space can be distributed. The
+          default value is auto, which means to refer to the width or height
+          property. Otherwise, you can set the default size to a length value
+          (%, em, etc.). It should be noted that if set to 0, the extra space
+          around the content is not factored, while if it is set to auto, then
+          the distributed space is based on the flex-grow value.
+        </p>
+      </div>
+      <div class="reference full-width">
+        <pre><code>flex: grow (shrink) (basis)</code></pre>
+        <p>
+          The <span class="type">flex</span> property is a shorthand for
+          flex-grow, flex-shrink, and flex-basis. If given one value, it sets
+          the value for flex-grow, while flex-shrink and flex-basis are set to
+          their default value. If given two values, then the first value is set
+          to flex-grow, and if the second value is a number, then it is assigned
+          to flex-shrink, while if it is a width, it is assigned to flex-basis.
+          And if given three values, it is assigned to flex-grow, flex-shrink,
+          and flex-basis respectively.
+        </p>
+      </div>
+      <div class="reference full-width">
+        <pre><code>align-self: auto | flex-start | flex-end | center | baseline | stretch</code></pre>
+        <p>
+          The <span class="type">align-self</span> property allows for an
+          individual flex item to have a specific alignment. Align-self will
+          override the default alignment (or the alignment from align-items).
+          The values for this property are identical to the ones from
+          <em>align-items</em>, but instead it only affects one item.
+        </p>
+        <img
+          src="images/flex-align-self.png"
+          alt="Visual example of align-self"
+        />
+      </div>
+      <ol class="instruction-list">
+        <li>
+          As of now, our masonry collage has a pattern, so now lets change the
+          order
+          <pre><code>.image-23 {
+ order: -1;
+}
+          
+.image-24 {
+  order: -2;
+}</code></pre>
+          Note that these two classes were pre-named in
+          <span class="type">index.html</span>. If you want to move different
+          images, feel free to change the class names inside the html file.
+        </li>
+        <li>
+          The pictures are now more collage-like, and the website is finished!
+          <img
+            src="images/masonry-example-4.png"
+            alt="Image of the website after adding code stated above"
+          />
+        </li>
+      </ol>
+    </section>
+    <section class="topic">
+      <h1>Grid</h1>
+      <p>
+        The second advanced layout model we will go over is
+        <span class="type">grid</span>. Grid, like flexbox, allows for powerful
+        alignment and spacing capabilities, but it is a two-dimensional system.
+        If you remember from flexbox, everything we did before was based on a
+        singular direction, but with grid, we will have control over both the
+        rows and columns.
+      </p>
+      <p>
+        Recall that with flexbox, most properties are applied to a container
+        (such as &ltdiv&gt), and the same applies for grid.
+      </p>
+      <h2>Container</h2>
+      <p>
+        The following properties will be pertaining to the grid container rather
+        than grid items.
+      </p>
+      <div class="reference full-width">
+        <pre><code>display: grid</code></pre>
+        <p>
+          This property defines its element as a grid container, allowing for
+          other grid properties to be applied. Without defining the display
+          property, the other flex properties will have no effect.
+        </p>
+      </div>
+      <div class="reference full-width">
+        <pre><code>grid-template-columns: [size] ...
+grid-template-rows: [size] ...</code></pre>
+        <p>
+          These two properties,
+          <span class="type">grid-template-columns</span> and
+          <span class="type">grid-template-rows</span>, create the foundation of
+          the grid layout. They define both the amount of rows/columns and the
+          size. To do this, you simply list values, separated by spaces. Each
+          value should specify the size of the row/column, and the number of
+          space separated values denotes how many rows/columns are in the grid.
+          To make it more clear, we will go over some examples.
+        </p>
+        <pre><code>grid-template-columns: 20px 30px auto 10px
+grid-template-rows: 25% 35px</code></pre>
+        <p class="center-text border">
+          These properties result in a grid with 4 columns and 2 rows (2x4
+          grid), with their respective track (row/column) sizes.
+        </p>
+        <pre><code>grid-template-columns: 1fr 1fr 1fr 1fr</code></pre>
+        <p class="center-text border">
+          With the first example, it is likely that none of the units were
+          unfamiliar, but the fr unit may be something you haven’t seen before.
+          The fr unit sets the track size as a fraction relative to the free
+          space left in the grid container. So with this example, each column is
+          one fourth of the grid container width.
+        </p>
+        <pre><code>grid-template-columns: 1fr 50px 2fr 1fr</code></pre>
+        <p class="center-text border">
+          When using fr, the amount of free space is applied after non-flexible
+          items. So, first column 2 will take up 50px, and now it will calculate
+          the free space. The free space being the grid container width minus
+          50px, and the first and fourth column each take one fourth of the free
+          space, while the third column will take up half.
+        </p>
+        <p>
+          It should also be noted that when creating a grid, names are assigned
+          to the row and column lines. For an example, if we go back to the
+          example where we created four columns, the columns are numbered from 1
+          to 4 respectively. Each line also has an alternative name, where the
+          last line is named -1, and continues to go further into the negative
+          (fourth line numbered -1 and first is -4 in our example).
+        </p>
+        <p>
+          Although there is an automatic naming convention, it can be useful to
+          explicitly name the lines. This can be done by putting the name in
+          brackets before the track size value. For an example:
+        </p>
+        <pre><code>grid-template-columns: [c1-start] 20px [c1-end c2-start] 30px [line3] auto [line4] 10px [line5]</code></pre>
+        <p class="center-text border">
+          A few things to note here: First being that there are five different
+          brackets in a grid with four columns. This is because the names are
+          tied to the lines, so there will always be one more line than a track.
+          Second is that in [c1-end c2-start] it follows the standard html
+          naming convention where you can have multiple names by separating the
+          names with a space.
+        </p>
+        <p>
+          Naming lines can be useful when needing to redefine the grid. Instead
+          of needing to redefine the positions by changing the line number, by
+          explicitly naming the line you will always know what the name refers
+          to unless you decide to explicitly change it again. Many times though,
+          the automated names are sufficient enough.
+        </p>
+      </div>
+      <ol class="instruction-list">
+        <li>
+          We are first going to initialize the grid to have four columns using
+          <span class="type">grid-template-columns</span>.
+        </li>
+        <li>
+          Open <span class="type">grid.css</span> and we will be working in the
+          <span class="type">.image-grid</span> class
+          <pre><code>.image-grid {
+  /* setting up grid container */
+  margin: 0 auto;
+  padding: 20px;
+  border: 2px solid black;
+  width: 1300px; /* increase width if the grid is too small! */
+          
+  /* grid properties */
+  display: grid;
+  grid-template-columns: 280px 280px 280px 280px; /* feel free to change sizes as well */
+}</code></pre>
+        </li>
+        <li>
+          The photos should now be formatted similarly to this:
+          <img
+            src="images/grid-example-1.jpg"
+            alt="Visual example of grid-template-columns"
+          />
+        </li>
+        <li>
+          Note how the height is disproportionately large, and this is because
+          we have not defined the size of the grid-rows. Now lets define a bunch
+          of rows with a set size so that the images are formatted using
+          <span class="type">grid-template-rows</span>.
+          <pre><code>.image-grid {
+  /* setting up grid container */
+  margin: 0 auto;
+  padding: 20px;
+  border: 2px solid black;
+  width: 1300px; /* increase width if the grid is too small! */
+          
+  /* grid properties */
+  display: grid;
+  grid-template-columns: 280px 280px 280px 280px; /* feel free to change sizes as well */
+  grid-template-rows: repeat(10, 200px) /* repeats the "200px" value 10 times, initializing 10 rows */
+}</code></pre>
+        </li>
+        <li>
+          The photos should now be formatted similarly to this:
+          <img
+            src="images/grid-example-2.jpg"
+            alt="Visual example of grid-template-rows"
+          />
+          There is going to be a lot of extra space at the bottom, but that is
+          okay! We will address this later.
+        </li>
+      </ol>
+
+      <div class="reference full-width">
+        <pre><code>grid-template-areas: ... | ...</code></pre>
+        <p>
+          Using grid-template-rows and grid-template-columns is not the only way
+          to define a grid template. The property
+          <span class="type">grid-template-areas</span> defines a grid template
+          by naming grid areas; Grid areas simply being a smaller grid inside of
+          the template. There is a lot of flexibility when creating a template
+          area, so we will go over an example to make it more clear.
+        </p>
+        <pre><code>grid-template-areas: 
+  “head head head side”
+  “main main .... side”
+  “foot foot foot side”</code></pre>
+        <p class="center-text border">
+          It creates a grid with three rows and four columns, with each cell
+          having their respective name. An empty cell is denoted by any number
+          of periods, given there are no spaces between. Multiple periods are
+          helpful to align the code how it looks visually
+        </p>
+      </div>
+      <div class="important">
+        Another thing to note that each row needs to have the same number of
+        cells, and that the names represent the areas. These names become useful
+        when wanting to adjust specific areas, which we will go over in the grid
+        item properties. If you want to reference the lines at the end of the
+        areas, you can do this with area-name-start and area-name-end.
+      </div>
+      <div class="reference full-width">
+        <pre><code>grid-template: none | &ltgrid-template-rows&gt / &ltgrid-template-columns&gt</code></pre>
+        <p>
+          If you were wondering if there is a shorthand for the previous
+          grid-template properties we have gone over, this is it. The
+          <span class="type">grid-template</span> property can combine both the
+          template-rows and columns in one property, and even include
+          grid-template-areas to have all three. Setting the value to none
+          simply sets all three properties to their initial values, so nothing
+          too interesting. Including both grid-template-rows and
+          grid-template-columns, on the other hand, is a lot more useful. It is
+          necessary to separate the rows and columns values with a forward
+          slash, so be careful about that. Using all three properties is a
+          little more complicated, so I will include an example to make it
+          easier to understand.
+        </p>
+        <pre><code>grid-template:
+  [r1-start] “head head head” 50px [r1-end]
+  [r2-start] “main main side” 50px [r2-end]
+  / 30 30 auto</code></pre>
+        <p>This shorthand is equivalent to this block of code</p>
+        <pre><code>grid-template-rows: [r1-start] 50px [r1-end r2-start] 50px [r2-end]
+grid-template-columns: 30 30 auto
+grid-template-areas:
+  “head head head”
+  “main main side”</code></pre>
+        <p>
+          By comparing the two blocks of code, you can see how grid-template
+          cleverly includes all three properties into one.
+        </p>
+      </div>
+      <div class="reference full-width">
+        <pre><code>column-gap: &ltline-size&gt
+row-gap: &ltline-size&gt</code></pre>
+        <p>
+          In the previous properties, we have gone over how to explicitly name
+          grid lines, but now we will go over how to change how they look
+          visually. Both the <span class="type">column-gap</span> and
+          <span class="type">row-gap</span> property allows us to change the
+          size of the respective lines. Of course, you cannot actually see the
+          grid lines, but you will be able to see the spacing between the grid
+          items. This property is useful when the items in the grid feel too
+          cramped, and require some spacing. Note that this property only
+          affects the gaps between the columns/rows. The outer edges (think
+          margin) will not change with this property.
+        </p>
+      </div>
+      <div class="reference full-width">
+        <pre><code>gap: &ltrow-gap&gt &ltcolumn-gap&gt</code></pre>
+        <p>
+          It would only make sense to have a shorthand property for column-gap
+          and row-gap. The <span class="type">gap</span> property achieves this
+          by making this into one line with a space separation. If only one
+          value is specified, both row and column are set to that value.
+        </p>
+      </div>
+      <ol class="instruction-list">
+        <li>
+          Lets now add space between our pictures using the
+          <span class="type">gap</span> property.
+          <pre><code>.image-grid {
+  /* setting up grid container */
+  margin: 0 auto;
+  padding: 20px;
+  border: 2px solid black;
+  width: 1300px; /* increase width if the grid is too small! */
+          
+  /* grid properties */
+  display: grid;
+  grid-template-columns: 280px 280px 280px 280px; /* feel free to change sizes as well */
+  grid-template-rows: repeat(10, 200px); /* repeats the "200px" value 10 times, initializing 10 rows */
+  column-gap: 20px;
+  row-gap: 20px;
+}</code></pre>
+          Remember that <span class="type">gap</span> is a shorthand for
+          <span class="type">row-gap</span> and
+          <span class="type">column-gap</span>, so try condensing the code!
+        </li>
+        <li>
+          The pictures should now look like this:
+          <img
+            src="images/grid-example-3.jpg"
+            alt="Visual example of the grid-gap property"
+          />
+        </li>
+      </ol>
+      <p class="good-to-know">
+        The old version of the gap property required a prefix of grid (Ex.
+        grid-column-gap). And while most browsers allow you to omit the prefix,
+        there is a chance that you may run into a situation where it is
+        required.
+      </p>
+      <div class="reference full-width">
+        <pre><code>justify-items: &ltvalue&gt</code></pre>
+        <p>
+          The <span class="type">justify-items</span> property aligns all grid
+          items along the inline/row axis.
+        </p>
+        <table>
+          <tr>
+            <td><span class="higlight">stretch</span></td>
+            <td>Stretches items to the whole width of the cell</td>
+          </tr>
+          <tr>
+            <td>start</td>
+            <td>Aligns items to the start edge of the cell</td>
+          </tr>
+          <tr>
+            <td>end</td>
+            <td>Aligns items to the end edge of the cell</td>
+          </tr>
+          <tr>
+            <td>center</td>
+            <td>Aligns items in the center of the cell</td>
+          </tr>
+        </table>
+        <p class="center-text">
+          <span class="highlight">Highlight</span> denotes default value
+        </p>
+      </div>
+      <div class="reference full-width">
+        <pre><code>align-items: &ltvalue&gt</code></pre>
+        <p>
+          The <span class="type">align-items</span> property aligns all grid
+          items along the block/column axis.
+        </p>
+        <table>
+          <tr>
+            <td><span class="highlight">stretch</span></td>
+            <td>Stretches items to the whole height of the cell</td>
+          </tr>
+          <tr>
+            <td>start</td>
+            <td>Aligns items to the start edge of the cell</td>
+          </tr>
+          <tr>
+            <td>end</td>
+            <td>Aligns items to the end edge of the cell</td>
+          </tr>
+          <tr>
+            <td>center</td>
+            <td>Aligns items in the center of the cell</td>
+          </tr>
+        </table>
+        <p class="center-text">
+          <span class="highlight">Highlight</span> denotes default value
+        </p>
+      </div>
+      <div class="reference full-width">
+        <pre><code>place-items: &ltalign-items&gt / &ltjustify-items&gt</code></pre>
+        <p>
+          The <span class="type">place-items</span> property is a shorthand for
+          justify-items and align-items by separating the values by a forward
+          slash. If it is just one value, then both align and justify are set to
+          that value.
+        </p>
+      </div>
+      <ol class="instruction-list">
+        <li>
+          We want our pictures to take up all of the space in each cell, and
+          this can be done by setting
+          <span class="type">justify-items</span> and
+          <span class="type">align-items</span> to
+          <span class="type">stretch</span>.
+          <pre><code>.image-grid {
+  /* setting up grid container */
+  margin: 0 auto;
+  padding: 20px;
+  border: 2px solid black;
+  width: 1300px; /* increase width if the grid is too small! */
+          
+  /* grid properties */
+  display: grid;
+  grid-template-columns: 280px 280px 280px 280px; /* feel free to change sizes as well */
+  grid-template-rows: repeat(10, 200px); /* repeats the "200px" value 10 times, initializing 10 rows */
+  column-gap: 20px;
+  row-gap: 20px;
+  justify-items: stretch;
+  align-items: stretch;
+}</code></pre>
+          Try using the <span class="type">place-items</span> property!
+        </li>
+        <li>Our website should now look similar to this:</li>
+        <img
+          src="images/grid-example-4.jpg"
+          alt="Visual example of the align-items and justify-items property"
+        />
+      </ol>
+
+      <div class="reference full-width">
+        <pre><code>justify-content: &ltvalue&gt</code></pre>
+        <p>
+          It is possible for the grid to be smaller than the grid container, and
+          this could happen due to grid items being in pixels for an example. If
+          this is the case, the
+          <span class="type">justify-content</span> property allows us to
+          position the grid (all items as a collective) in the grid container.
+          This property aligns the grid along the inline/row axis.
+        </p>
+        <table>
+          <tr>
+            <td><span class="highlight">stretch</span></td>
+            <td>
+              Resizes the grid items so the grid stretches to the whole width of
+              the container
+            </td>
+          </tr>
+          <tr>
+            <td>start</td>
+            <td>Aligns the grid to the start edge of the container</td>
+          </tr>
+          <tr>
+            <td>end</td>
+            <td>Aligns the grid to the end edge of the container</td>
+          </tr>
+          <tr>
+            <td>center</td>
+            <td>Aligns the grid in the center of the container</td>
+          </tr>
+          <tr>
+            <td>space-around</td>
+            <td>
+              Places an even amount of space between each grid item, with
+              half-sized spaces on the far ends
+            </td>
+          </tr>
+          <tr>
+            <td>space-between</td>
+            <td>
+              Places an even amount of space between each grid item, with no
+              space at the far ends
+            </td>
+          </tr>
+          <tr>
+            <td>space-evenly</td>
+            <td>
+              places an even amount of space between each grid item, including
+              the far ends
+            </td>
+          </tr>
+        </table>
+        <p class="center-text">
+          <span class="highlight">Highlight</span> denotes default value
+        </p>
+      </div>
+      <div class="reference full-width">
+        <pre><code>align-content: &ltvalue&gt</code></pre>
+        <p>
+          The <span class="type">align-content</span> property has the exact
+          same concept as justify-content, but it aligns the grid along the
+          block/column axis.
+        </p>
+        <table>
+          <tr>
+            <td><span class="highlight">stretch</span></td>
+            <td>
+              Resizes the grid items so the grid stretches to the whole height
+              of the container
+            </td>
+          </tr>
+          <tr>
+            <td>start</td>
+            <td>Aligns the grid to the start edge of the container</td>
+          </tr>
+          <tr>
+            <td>end</td>
+            <td>Aligns the grid to the end edge of the container</td>
+          </tr>
+          <tr>
+            <td>center</td>
+            <td>Aligns the grid in the center of the container</td>
+          </tr>
+          <tr>
+            <td>space-around</td>
+            <td>
+              Places an even amount of space between each grid item, with
+              half-sized spaces on the far ends
+            </td>
+          </tr>
+          <tr>
+            <td>space-between</td>
+            <td>
+              Places an even amount of space between each grid item, with no
+              space at the far ends
+            </td>
+          </tr>
+          <tr>
+            <td>space-evenly</td>
+            <td>
+              Places an even amount of space between each grid item, including
+              the far ends
+            </td>
+          </tr>
+        </table>
+        <p class="center-text">
+          <span class="highlight">Highlight</span> denotes default value
+        </p>
+      </div>
+      <div class="reference full-width">
+        <pre><code>place-content: &ltalign-content&gt / &ltjustify-content&gt</code></pre>
+        <p>
+          You were probably expecting another shorthand after we introduced
+          justify-content and align-content, and you would be correct. We can
+          use the <span class="type">place-content</span> property to set both
+          properties at once by separating them with a forward slash. And again,
+          if only one value is given, it is applied to both align and justify.
+        </p>
+      </div>
+      <ol class="instruction-list">
+        <li>
+          We now want to horizontally align our images while keeping them at the
+          top of the container. We can do this by setting the
+          <span class="type">content</span>.
+          <pre><code>.image-grid {
+  /* setting up grid container */
+  margin: 0 auto;
+  padding: 20px;
+  border: 2px solid black;
+  width: 1300px; /* increase width if the grid is too small! */
+                    
+  /* grid properties */
+  display: grid;
+  grid-template-columns: 280px 280px 280px 280px; /* feel free to change sizes as well */
+  grid-template-rows: repeat(10, 200px); /* repeats the "200px" value 10 times, initializing 10 rows */
+  column-gap: 20px;
+  row-gap: 20px;
+  justify-items: stretch;
+  align-items: stretch;
+  justify-content: center;
+  align-content: start;
+}</code></pre>
+          Try using the <span class="type">place-content</span> property!
+        </li>
+        <li>
+          Our website should now look like this:
+          <img
+            src="images/grid-example-5.jpg"
+            alt="Example of centering the images in website"
+          />
+        </li>
+      </ol>
+
+      <div class="reference full-width">
+        <pre><code>grid-auto-columns: &lttrack-size&gt
+grid-auto-rows: &lttrack-size&gt</code></pre>
+        <p>
+          As the name suggests, the
+          <span class="type">grid-auto-columns</span> and
+          <span class="type">grid-auto-rows</span> property sets the size of
+          auto generated tracks. To give some insight on how auto tracks are
+          made, we will later go over a grid item property which can specify
+          what row/column it spans on. If that specified cell is out of the
+          range made from the grid-template, then auto generated tracks are
+          created. For an example, if we have a template of a 2x2 grid, but we
+          set an item to be in row 2, column 4, two extra columns will be
+          created. The fourth column’s size will automatically be set depending
+          on the grid item, but what happens to the third column? It actually
+          has a width of 0 by default, so visually it does not even appear to
+          exist. With these properties we are able to change that 0 value into a
+          value we specify.
+        </p>
+      </div>
+      <ol class="instruction-list">
+        <li>
+          We are finally going to fix the extra space! We can do this by
+          deleting our <span class="type">grid-template-rows</span> property,
+          and replacing it with <span class="type">grid-auto-rows</span>. This
+          way, regardless of how many images we have, CSS will always know to
+          keep making rows of the desired size.
+
+          <pre><code>.image-grid {
+  /* setting up grid container */
+  margin: 0 auto;
+  padding: 20px;
+  border: 2px solid black;
+  width: 1300px; /* increase width if the grid is too small! */
+                              
+  /* grid properties */
+  display: grid;
+  grid-template-columns: 280px 280px 280px 280px; /* feel free to change sizes as well */
+  grid-auto-rows: 200px; /* REPLACED CODE HERE */
+  column-gap: 20px;
+  row-gap: 20px;
+  justify-items: stretch;
+  align-items: stretch;
+  justify-content: center;
+  align-content: start;
+}</code></pre>
+        </li>
+        <li>
+          Our website should now look like this:
+          <img
+            src="images/grid-example-6.jpg"
+            alt="Website example that shows grid-auto-rows, eliminating the extra rows at the bottom"
+          />
+          Note how we have eliminated the extra rows at the bottom.
+        </li>
+      </ol>
+
+      <div class="reference full-width">
+        <pre><code>grid-auto-flow: &ltvalue&gt</code></pre>
+        <p>
+          If you remember the flex-direction property from the flexbox section
+          (you should, because it was very important!),
+          <span class="type">grid-auto-flow</span> is very similar. A powerful
+          feature about grid is that you can explicitly set the location of an
+          item on the grid, which we will go over later, but it is not required.
+          And if the location is not explicitly set, the grid-auto-flow property
+          determines where the item will be placed.
+        </p>
+        <table>
+          <tr>
+            <td><span class="highlight">row</span></td>
+            <td>
+              Fills in each row, and adds a new row when the current one is full
+            </td>
+          </tr>
+          <tr>
+            <td>column</td>
+            <td>
+              Fills in each column, and adds a new column when the current one
+              is full
+            </td>
+          </tr>
+          <tr>
+            <td>dense</td>
+            <td>
+              Prioritizes filling in holes earlier in the grid if smaller items
+              appear
+            </td>
+          </tr>
+        </table>
+        <p class="center-text">
+          <span class="highlight">Highlight</span> denotes default value
+        </p>
+      </div>
+      <div class="reference full-width">
+        <pre><code>grid: ...</code></pre>
+        <p>
+          The <span class="type">grid</span> property is an extremely useful
+          shorthand which combines grid-template-rows, grid-template-columns,
+          grid-template-areas, grid-auto-rows, grid-auto-columns, and
+          grid-auto-flow in one property. Note that you have to choose either
+          explicit or implicit grid properties in a single declaration. Although
+          it is very useful, we will not be going over it just because it takes
+          a bit to get used to, and there is a lot of other material to go over.
+          So I would highly encourage to look at the css documentations for more
+          information on the grid property.
+        </p>
+      </div>
+      <h2>Item</h2>
+      <p>
+        The following properties are now pertaining to grid items rather than
+        the container.
+      </p>
+      <div class="reference full-width">
+        <pre><code>grid-column-start: &ltvalue&gt
+grid-column-end: &ltvalue&gt
+grid-row-start: &ltvalue&gt
+grid-row-end: &ltvalue&gt</code></pre>
+        <p>
+          With these properties, we are able to explicitly define where the grid
+          item is placed. The <span class="type">grid-column-start</span> and
+          <span class="type">grid-row-start</span> property define what line
+          where the item begins, while
+          <span class="type">grid-column-end</span> and
+          <span class="type">grid-row-end</span>
+          define what line the item ends at. Extra emphasis that they are
+          defined by the grid lines, so an item defined with grid-column-start:
+          2 and grid-column-end: 4 will take up the second and third column
+          because it lies between the second and fourth grid line.
+        </p>
+        <table>
+          <tr>
+            <td>&ltnumber&gt</td>
+            <td>line number</td>
+          </tr>
+          <tr>
+            <td>&ltname&gt</td>
+            <td>line name</td>
+          </tr>
+          <tr>
+            <td>span &ltnumber&gt</td>
+            <td>
+              the item will span across the the provided number of grid tracks
+            </td>
+          </tr>
+          <tr>
+            <td>span &ltname&gt</td>
+            <td>
+              the item will span across until it reaches the line with the
+              provided name
+            </td>
+          </tr>
+          <tr>
+            <td>auto</td>
+            <td>auto-placement, automatic span, or default span of one</td>
+          </tr>
+        </table>
+      </div>
+      <div class="reference full-width">
+        <pre><code>grid-column: &ltstart&gt / &ltend&gt
+grid-row: &ltstart&gt / &ltend&gt</code></pre>
+        <p>
+          These properties are a shorthand for
+          <span class="type">grid-column-start</span> +
+          <span class="type">grid-column-end</span>, and
+          <span class="type">grid-row-start</span> +
+          <span class="type">grid-row-end</span>, respectively. The start and
+          end are separated by a forward slash, and if no end value is
+          specified, it will span 1 track as default.
+        </p>
+      </div>
+      <div class="reference full-width">
+        <pre><code>grid-area: &ltvalue&gt</code></pre>
+        <p>
+          Recall that there were two ways to define a grid template,
+          grid-template-areas and grid-template-rows/columns. So depending on
+          how you set up your template (note that you can use both ways
+          simultaneously), the way you use the
+          <span class="type">grid-area</span> property may vary.
+        </p>
+        <table>
+          <tr>
+            <td>name</td>
+            <td>assigns an area from grid-template-areas to the grid item</td>
+          </tr>
+          <tr>
+            <td>
+              &ltrow-start&gt / &ltcolumn-start&gt / &ltrow-end&gt /
+              &ltcolumn-end&gt
+            </td>
+            <td>
+              shorthand property to reduce grid item start and end even further
+            </td>
+          </tr>
+        </table>
+      </div>
+      <ol class="instruction-list">
+        <li>
+          We will now be working in <span class="type">image-pan</span>. This
+          class is the first image in our grid, and it is named pan because it
+          was orignally a panorama, but it has been clipped in order to fit in
+          the cell. Now lets define this image to take up all four columns.
+        </li>
+        <li>
+          In order to do this, we must first make a small change in our
+          <span class="type">grid-image</span> class. Simply remove the
+          <span class="type">max-width"</span> line. This property was here
+          because the images are very large, so initially it would be a big
+          cluster, but now it is not needed since we have defined our grid.
+          <pre><code>.grid-image {
+  /* removed max-width */
+  max-height: 200px;
+  object-fit: cover;
+}</code></pre>
+        </li>
+        <li>
+          Now we can define the location of <span class="type">image-pan</span>
+          <pre><code>.image-pan {
+  grid-column: 1 / span 4;
+  grid-row: 7 / 8;
+}</code></pre>
+          Try using the <span class="type">grid-area</span> property!
+        </li>
+        <li>
+          Our website should now look like this:
+          <img
+            src="images/grid-example-7.jpg"
+            alt="Website where we define the bottom row to consist of one panoramic image that takes up all four columns"
+          />
+        </li>
+      </ol>
+
+      <div class="reference full-width">
+        <pre><code>justify-self: &ltvalue&gt</code></pre>
+        <p>
+          The <span class="type">justify-self</span> property aligns the item in
+          its cell along the inline/row axis.
+        </p>
+        <table>
+          <tr>
+            <td><span class="highlight">stretch</span></td>
+            <td>Fills whole width of cell</td>
+          </tr>
+          <tr>
+            <td>start</td>
+            <td>Aligns item to start edge of cell</td>
+          </tr>
+          <tr>
+            <td>end</td>
+            <td>Aligns item to end edge of cell</td>
+          </tr>
+          <tr>
+            <td>center</td>
+            <td>Aligns item to center of cell</td>
+          </tr>
+        </table>
+        <p class="center-text">
+          <span class="highlight">Highlight</span> denotes default value
+        </p>
+      </div>
+      <div class="reference full-width">
+        <pre><code>align-self: &ltvalue&gt</code></pre>
+        <p>
+          The <span class="type">align-self</span> property aligns the item in
+          its cell along the block/column axis.
+        </p>
+        <table>
+          <tr>
+            <td><span class="highlight">stretch</span></td>
+            <td>Fills whole height of cell</td>
+          </tr>
+          <tr>
+            <td>start</td>
+            <td>Aligns item to start edge of cell</td>
+          </tr>
+          <tr>
+            <td>end</td>
+            <td>Aligns item to end edge of cell</td>
+          </tr>
+          <tr>
+            <td>center</td>
+            <td>Aligns item to center of cell</td>
+          </tr>
+        </table>
+        <p class="center-text">
+          <span class="highlight">Highlight</span> denotes default value
+        </p>
+      </div>
+      <div class="reference full-width">
+        <pre><code>place-self: &ltvalue&gt</code></pre>
+        <p>
+          The <span class="type">place-self</span> property is a shorthand
+          property for <span class="type">align-self</span> and
+          <span class="type">justify-self</span>.
+        </p>
+        <table>
+          <tr>
+            <td>auto</td>
+            <td>Sets default alignment for the layout</td>
+          </tr>
+          <tr>
+            <td>&ltalign-self&gt / &ltjustify-self&gt</td>
+            <td>
+              Allows for the two properties to be defined in one line by
+              separating them with a forward slash; and if there is only one
+              value given, both align and justify are set to that value
+            </td>
+          </tr>
+        </table>
+      </div>
+      <p>
+        We can finish the website by removing the guidance border in image-grid:
+      </p>
+      <pre><code>.image-grid {
+  /* setting up grid container */
+  margin: 0 auto;
+  padding: 20px;
+  /* removed border */
+  width: 1300px; /* increase width if the grid is too small! */
+}</code></pre>
+      <p>And now the website is finished!</p>
+      <img
+        src="images/grid-example-8.jpg"
+        alt="Finished website where border is removed"
+      />
+    </section>
+
+    <!-- END MAIN CONTENT -->
+  </body>
+</html>
