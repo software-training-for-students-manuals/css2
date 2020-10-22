@@ -1,0 +1,86 @@
+/*** general ***/
+
+body {
+  font-family: "Roboto-Condensed", sans-serif;
+  background-color: rgb(251, 238, 228);
+}
+
+h2 {
+  margin: 15px 0px;
+  font-family: "Fjalla One", sans-serif;
+}
+
+p,
+a {
+  font-size: 1.15em;
+}
+.subtitle {
+  margin: 60px 0 20px;
+  font-size: 3.3em;
+}
+
+.para-1 {
+  text-align: center;
+}
+
+hr {
+  margin-top: 20px;
+  margin-bottom: 40px;
+  height: 2px;
+  width: 90%;
+  border: 0;
+  background: black;
+  background: -webkit-gradient(
+    linear,
+    0 0,
+    100% 0,
+    from(rgba(0, 0, 0, 0)),
+    to(rgba(0, 0, 0, 0)),
+    color-stop(50%, black)
+  );
+}
+
+.image-grid {
+  /* setting up grid container */
+  margin: 0 auto;
+  padding: 20px;
+  border: 2px solid black;
+  height: 5000px; /* purposely large in order to better demonstrate properties */
+  width: 1300px; /* increase width if the grid is too small! */
+
+  /* grid properties */
+}
+
+.grid-image {
+  max-width: 280px;
+  max-height: 200px;
+  object-fit: cover;
+}
+
+.image-pan {
+}
+
+/* footer layout */
+.footer {
+  padding-bottom: 60px;
+}
+
+.icon-bar {
+  height: 150px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  flex-wrap: wrap;
+}
+
+.icon-bar > img {
+  height: 40px;
+  margin: 0 15px;
+}
+
+#copyright {
+  margin-top: 40px;
+  text-align: center;
+  color: #000;
+  font-size: 0.9em;
+}
